@@ -9,6 +9,16 @@ class QuestionController extends GetxController
 
   Animation get animation => this._animation;
 
+  List<Question> _questions = sample_data
+      .map(
+        (question) => Question(
+            id: question['id'],
+            question: question['question'],
+            options: question['options'],
+            answer: question['answer_index']),
+      )
+      .toList();
+
   @override
   void onInit() {
     _animationController =
@@ -22,15 +32,6 @@ class QuestionController extends GetxController
     super.onInit();
   }
 
-  List<Question> _questions = sample_data
-      .map(
-        (question) => Question(
-            id: question['id'],
-            question: question['question'],
-            options: question['options'],
-            answer: question['answer_index']),
-      )
-      .toList();
   List<Question> get questions => this._questions;
 
   bool _isAnswered = false;
@@ -48,5 +49,4 @@ class QuestionController extends GetxController
 
   int _numOfCorrectAns = 0;
   int get numOfCorrectAns => this._numOfCorrectAns;
-
 }
