@@ -22,13 +22,17 @@ class Option extends StatelessWidget {
           Color getRigthColor() {
             if (qnController.isAnswered) {
               if (index == qnController.correctAns) {
-                return kGrayColor;
+                return kGreenColor;
               } else if (index == qnController.selectedAns &&
                   qnController.selectedAns != qnController.correctAns) {
                 return kRedColor;
               }
             }
             return kGrayColor;
+          }
+
+          IconData getRightIcon() {
+            return getRigthColor() == kRedColor ? Icons.close : Icons.done;
           }
 
           return InkWell(
@@ -51,9 +55,18 @@ class Option extends StatelessWidget {
                     height: 26,
                     width: 26,
                     decoration: BoxDecoration(
+                      color: getRigthColor() == kGrayColor
+                          ? Colors.transparent
+                          : getRigthColor(),
                       borderRadius: BorderRadius.circular(50),
                       border: Border.all(color: getRigthColor()),
                     ),
+                    child: getRigthColor() == kGrayColor
+                        ? null
+                        : Icon(
+                            getRightIcon(),
+                            size: 16,
+                          ),
                   )
                 ],
               ),
