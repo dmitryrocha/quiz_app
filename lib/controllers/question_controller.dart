@@ -32,9 +32,16 @@ class QuestionController extends GetxController
         update();
       });
 
-    _animationController.forward();
+    _animationController.forward().whenComplete(nextQuestion);
     _pageController = PageController();
     super.onInit();
+  }
+
+  @override
+  void onClose() {
+    super.onClose();
+    _animationController.dispose();
+    _pageController.dispose();
   }
 
   List<Question> get questions => this._questions;
@@ -67,11 +74,7 @@ class QuestionController extends GetxController
 
     //Assim que uma questão for escolhida, a página passa em 3 segundos
     Future.delayed(Duration(seconds: 3), () {
-      _isAnswered = false;
-      _pageController.nextPage(
-          duration: Duration(milliseconds: 250), curve: Curves.ease);
-      _animationController.reset();
-      _animationController.forward();
+      nextQuestion();
     });
   }
 
@@ -81,7 +84,11 @@ class QuestionController extends GetxController
       _pageController.nextPage(
           duration: Duration(milliseconds: 250), curve: Curves.ease);
       _animationController.reset();
-      _animationController.forward();
+      _animationController.forward().whenComplete(nextQuestion);
     }
+  }
+
+  void updatePageNumber(int index) {
+    _questionNumber.value = index + 1;
   }
 }

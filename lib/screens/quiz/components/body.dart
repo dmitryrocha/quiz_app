@@ -34,22 +34,25 @@ class Body extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-                child: Text.rich(
-                  TextSpan(
-                    text: "Question 1",
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline4
-                        .copyWith(color: kSecondaryColor),
-                    children: [
-                      TextSpan(
-                        text: "/10",
-                        style: Theme.of(context)
-                            .textTheme
-                            .headline5
-                            .copyWith(color: kSecondaryColor),
-                      )
-                    ],
+                child: Obx(
+                  () => Text.rich(
+                    TextSpan(
+                      text:
+                          "Question ${_questionController.questionNumber.value}",
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline4
+                          .copyWith(color: kSecondaryColor),
+                      children: [
+                        TextSpan(
+                          text: "/${_questionController.questions.length}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline5
+                              .copyWith(color: kSecondaryColor),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -64,7 +67,10 @@ class Body extends StatelessWidget {
                   physics: NeverScrollableScrollPhysics(),
                   controller: _questionController.pageController,
                   itemCount: _questionController.questions.length,
-                  itemBuilder: (context, index) => QuestionCard(question: _questionController.questions[index],),
+                  onPageChanged: _questionController.updatePageNumber,
+                  itemBuilder: (context, index) => QuestionCard(
+                    question: _questionController.questions[index],
+                  ),
                 ),
               ),
             ],
