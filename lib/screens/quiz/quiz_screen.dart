@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:quiz_app/controllers/question_controller.dart';
 
 import 'components/body.dart';
 
@@ -8,6 +10,7 @@ class QuizScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    QuestionController _controller = Get.put(QuestionController());
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -15,7 +18,7 @@ class QuizScreen extends StatelessWidget {
         elevation: 0,
         actions: [
           TextButton(
-            onPressed: () {},
+            onPressed: _controller.nextQuestion,
             child: Text("Skip"),
           ),
         ],
@@ -24,4 +27,3 @@ class QuizScreen extends StatelessWidget {
     );
   }
 }
-

@@ -2,6 +2,7 @@ import 'package:flutter/animation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:quiz_app/models/quesion.dart';
+import 'package:quiz_app/screens/score/score_screen.dart';
 
 class QuestionController extends GetxController
     with SingleGetTickerProviderMixin {
@@ -85,6 +86,8 @@ class QuestionController extends GetxController
           duration: Duration(milliseconds: 250), curve: Curves.ease);
       _animationController.reset();
       _animationController.forward().whenComplete(nextQuestion);
+    } else {
+      Get.to(ScoreScreen());
     }
   }
 
